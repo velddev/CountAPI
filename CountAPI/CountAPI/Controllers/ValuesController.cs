@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CountAPI.Authentication;
 using CountAPI.Common;
+using CountAPI.Results;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -49,7 +50,7 @@ namespace CountAPI.Controllers
         // POST api/values
         [HttpPost]
 		[BasicAuthentication]
-        public async Task<string> Post([FromBody]Shard s)
+        public async Task<JsonResult> Post([FromBody]Shard s)
         {
 			if(s != null)
 			{ 
@@ -69,11 +70,11 @@ namespace CountAPI.Controllers
 			}
 			else
 			{
-				return "NOT OK!";
+				return new ErrorResult(500, "Body not supplied");
 			}
 
 			await OnGuildChange(allShards.Sum(x => x.Count));
-			return "OK";
+			return new ErrorResult(200, "OK");
 		}
     }
 }

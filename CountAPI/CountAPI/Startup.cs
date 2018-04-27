@@ -29,7 +29,8 @@ namespace CountAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+			services.AddMvcCore()
+				.AddJsonFormatters();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,11 +75,11 @@ namespace CountAPI
 					.PostAsync<string>("", $"{{\"server_count\": {c}}}");
 			};
 
-			app.UseCors(builder => {
-				builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
-			});
+			//app.UseCors(builder => {
+			//	builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+			//});
 
-            app.UseMvc();
+			app.UseMvc();
         }
     }
 }
