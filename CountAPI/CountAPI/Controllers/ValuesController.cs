@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CountAPI.Authentication;
 using CountAPI.Common;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -47,6 +48,7 @@ namespace CountAPI.Controllers
 
         // POST api/values
         [HttpPost]
+		[BasicAuthentication]
         public async Task<string> Post([FromBody]Shard s)
         {
 			if(s != null)

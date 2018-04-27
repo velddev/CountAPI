@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CountAPI.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,8 @@ namespace CountAPI
 {
     public class Startup
     {
+		public static string AuthCode;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,7 +35,7 @@ namespace CountAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-			Console.WriteLine(Configuration.GetValue<ulong>("DiscordBotsUserId"));
+			AuthCode = Configuration.GetValue<string>("SecurityKey");
 
 			if (env.IsDevelopment())
             {
@@ -71,7 +74,9 @@ namespace CountAPI
 					.PostAsync<string>("", $"{{\"server_count\": {c}}}");
 			};
 
-			app.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+			app.UseCors(builder => {
+				builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+			});
 
             app.UseMvc();
         }
