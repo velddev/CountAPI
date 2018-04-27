@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CountAPI.Common;
-using DiscordBotsList.Api;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -15,7 +14,7 @@ namespace CountAPI.Controllers
 	{
 		public static List<Shard> allShards = new List<Shard>();
 
-		private static AuthDiscordBotListApi api = null;
+		public static event Func<int, Task> OnGuildChange;
 
 		private JsonSerializerSettings serializerSettings = new JsonSerializerSettings()
 		{
@@ -71,9 +70,7 @@ namespace CountAPI.Controllers
 				return "NOT OK!";
 			}
 
-			if(api != null)
-				await api.UpdateStats(0, allShards.Count, allShards.Select(x => x.Count).ToArray());
-
+			await OnGuildChange(allShards.Sum(x => x.Count));
 			return "OK";
 		}
     }
