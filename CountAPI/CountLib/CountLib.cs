@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using CountAPI.Common;
 using Miki.Rest;
 
-namespace CountLib
+namespace CountAPI
 {
     public class CountLib
     {
@@ -13,6 +13,10 @@ namespace CountLib
 		public CountLib()
 		{
 			client = new RestClient("https://servers.miki.ai/api");
+		}
+		public CountLib(string baseUrl)
+		{
+			client = new RestClient(baseUrl);
 		}
 
 		// GET ALL
