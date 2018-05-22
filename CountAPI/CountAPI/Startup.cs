@@ -30,7 +30,8 @@ namespace CountAPI
         public void ConfigureServices(IServiceCollection services)
         {
 			services.AddMvcCore()
-				.AddJsonFormatters();
+				.AddJsonFormatters()
+				.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,9 +76,10 @@ namespace CountAPI
 					.PostAsync<string>("", $"{{\"server_count\": {c}}}");
 			};
 
-			//app.UseCors(builder => {
-			//	builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
-			//});
+			app.UseCors(builder =>
+			{
+				builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+			});
 
 			app.UseMvc();
         }
