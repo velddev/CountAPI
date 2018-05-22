@@ -71,8 +71,7 @@ namespace CountAPI
 			{
 				var client = new RestClient("https://bots.discord.pw/api/bots/160105994217586689/stats");
 
-				await client
-					.SetAuthorization(Configuration.GetValue<string>("DiscordPwToken"))
+				await client.SetAuthorization(Configuration.GetValue<string>("DiscordPwToken"))
 					.PostAsync<string>("", $"{{\"server_count\": {c}}}");
 			};
 

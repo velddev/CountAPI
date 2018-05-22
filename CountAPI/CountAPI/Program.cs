@@ -18,9 +18,11 @@ namespace CountAPI
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+			new WebHostBuilder()
+				.UseKestrel()
 				.UseUrls("http://*:1256")
-                .Build();
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseStartup<Startup>()
+				.Build();
     }
 }
