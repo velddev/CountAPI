@@ -10,13 +10,12 @@ namespace CountAPI
     {
 		RestClient client;
 
-		public CountLib()
-		{
-			client = new RestClient("https://servers.miki.ai/api");
-		}
-		public CountLib(string baseUrl)
+		string _authCode = "";
+
+		public CountLib(string baseUrl, string authCode)
 		{
 			client = new RestClient(baseUrl);
+			_authCode = authCode;
 		}
 
 		// GET ALL
@@ -33,6 +32,7 @@ namespace CountAPI
 
 		// SEND STATS
 		public async Task PostStats(int id, int count)
-			=> await client.PostAsync("/count", $"{{\"id\":{id}, \"count\":{count}}}");
+			=> await client.SetAuthorization(_authCode)
+				.PostAsync("/count", $"{{\"id\":{id}, \"count\":{count}}}");
 	}
 }

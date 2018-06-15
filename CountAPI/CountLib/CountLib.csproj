@@ -11,10 +11,9 @@
     <RepositoryUrl>https://github.com/velddev/servercount-api</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>server count, api, wrapper</PackageTags>
-    <PackageReleaseNotes>Add: custom path
-Add: new namespace</PackageReleaseNotes>
+    <PackageReleaseNotes>Add: authentication methods</PackageReleaseNotes>
     <NeutralLanguage>English</NeutralLanguage>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
